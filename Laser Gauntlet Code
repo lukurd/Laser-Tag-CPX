@@ -1,0 +1,97 @@
+input.onGesture(Gesture.Shake, function () {
+    light.clear()
+    if (ammo == 0) {
+        music.playMelody("G A B C5 - - - - ", 200)
+        light.showRing(
+        `green green black black black black black black green green`
+        )
+        control.waitMicros(500000)
+        light.clear()
+    }
+    if (ammo == 1) {
+        music.playMelody("G A B - - - - - ", 200)
+        light.showRing(
+        `green green black black black black black black black green`
+        )
+        control.waitMicros(500000)
+        light.clear()
+    }
+    if (ammo == 2) {
+        music.playMelody("G A - - - - - - ", 200)
+        light.showRing(
+        `green black black black black black black black black green`
+        )
+        control.waitMicros(5000000)
+        light.clear()
+    }
+    if (ammo == 3) {
+        music.playMelody("G - - - - - - - ", 200)
+        light.showRing(
+        `green black black black black black black black black black`
+        )
+        control.waitMicros(500000)
+        light.clear()
+    }
+    if (ammo == 4) {
+        light.showRing(
+        `black black black black black black black black black black`
+        )
+        control.waitMicros(500000)
+        light.clear()
+    }
+})
+input.touchA1.onEvent(ButtonEvent.Click, function () {
+    if (ammo < 4) {
+        control.waitMicros(4)
+        music.pewPew.play()
+        network.infraredSendNumber(shot)
+        light.showAnimation(light.theaterChaseAnimation, 500)
+        ammo += 1
+        light.clear()
+    }
+})
+let ammo = 0
+let shot = 0
+music.setVolume(125)
+light.setBrightness(255)
+music.magicWand.play()
+shot = 1
+ammo = 0
+light.showAnimation(light.sparkleAnimation, 500)
+music.playMelody("F - A - C5 - - - ", 200)
+light.clear()
+forever(function () {
+    if (input.touchA4.wasPressed() && ammo < 4) {
+        control.waitMicros(4)
+        music.pewPew.play()
+        network.infraredSendNumber(shot)
+        light.showAnimation(light.theaterChaseAnimation, 500)
+        music.pewPew.play()
+        network.infraredSendNumber(shot)
+        light.showAnimation(light.theaterChaseAnimation, 500)
+        music.pewPew.play()
+        network.infraredSendNumber(shot)
+        light.showAnimation(light.theaterChaseAnimation, 500)
+        ammo += 3
+        light.clear()
+    } else if (input.touchA5.isPressed() && input.touchA6.isPressed()) {
+        music.powerUp.play()
+        light.showRing(
+        `black black black black green green black black black black`
+        )
+        music.playTone(392, music.beat(BeatFraction.Half))
+        light.showRing(
+        `black black black green green green green black black black`
+        )
+        music.playTone(440, music.beat(BeatFraction.Half))
+        light.showRing(
+        `black black green green green green green green black black`
+        )
+        music.playTone(494, music.beat(BeatFraction.Half))
+        light.showRing(
+        `green green green green green green green green green green`
+        )
+        light.clear()
+        ammo = 0
+    }
+})
