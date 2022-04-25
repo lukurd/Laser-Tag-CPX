@@ -1,0 +1,52 @@
+input.onGesture(Gesture.Shake, function () {
+    if (Health == 0) {
+        music.playTone(494, music.beat(BeatFraction.Half))
+        control.waitMicros(5000)
+        music.playTone(494, music.beat(BeatFraction.Half))
+        control.waitMicros(5000)
+        music.playTone(494, music.beat(BeatFraction.Half))
+        light.showRing(
+        `green green green green green green green green green green`
+        )
+        control.waitMicros(50000)
+        light.clear()
+    }
+    if (Health == 1) {
+        music.playTone(494, music.beat(BeatFraction.Half))
+        control.waitMicros(5000)
+        music.playTone(494, music.beat(BeatFraction.Half))
+        light.showRing(
+        `black green green green black black green green green black`
+        )
+        control.waitMicros(50000)
+        light.clear()
+    }
+    if (Health == 2) {
+        music.playTone(494, music.beat(BeatFraction.Half))
+        light.showRing(
+        `black black green black black black black green black black`
+        )
+        control.waitMicros(50000)
+        light.clear()
+    }
+})
+network.onInfraredReceivedNumber(function (num) {
+    if (Health < 3) {
+        Health += 1
+    } else if (Health == 3) {
+        music.wawawawaa.play()
+        light.showAnimation(light.theaterChaseAnimation, 500)
+        control.waitMicros(50000)
+        light.clear()
+    }
+})
+input.buttonsAB.onEvent(ButtonEvent.Click, function () {
+    music.magicWand.play()
+    light.showAnimation(light.rainbowAnimation, 500)
+    Health = 0
+})
+let Health = 0
+music.setVolume(255)
+music.jumpUp.play()
+let num = 1
+Health = 0
